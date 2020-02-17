@@ -7,7 +7,7 @@
 <p>or for multible elements...</p>
 <p>Ex.<br/>
 <pre>const images = document.querySelectorAll('.sp-slider__image');
-images.forEach(item => {
+images && images.forEach(item => {
     initSpSlider(item);
 });
 </pre>
