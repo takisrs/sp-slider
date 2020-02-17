@@ -1,4 +1,4 @@
-const initSpSlider = (el) => {
+const initSpSlider = (imageEl) => {
     const createNavEl = (action, className, content) => {
         const navEl = document.createElement('span');
         navEl.className = className;
@@ -7,12 +7,11 @@ const initSpSlider = (el) => {
         return navEl;
     }
 
-    const handleNavClick = (event, handler, targetImg) => {
-        event.preventDefault();
-
-        const navAction = handler.dataset.action || 'next';
-        const index = parseInt(targetImg.dataset.index) || 0;
-        const images = targetImg.dataset.images ? targetImg.dataset.images.split(',') : [];
+    const handleNavAction = (action) => {
+        console.log(action);
+        const navAction = action || 'next';
+        const index = parseInt(imageEl.dataset.index) || 0;
+        const images = imageEl.dataset.images ? imageEl.dataset.images.split(',') : [];
         
         if (images.length > 0){
             let newIndex;
@@ -26,25 +25,58 @@ const initSpSlider = (el) => {
                     newIndex = images.length-1;
             }
 
-            targetImg.dataset.index = newIndex;
-            targetImg.src = images[newIndex];
+            imageEl.dataset.index = newIndex;
+            imageEl.src = images[newIndex];
         }
     }
 
-    const imageEl = document.querySelector(el);
+    let InitialPos = null;
+    const getInitialPos = (e) => {
+        e.preventDefault();
+        InitialPos = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    }
 
-    if (imageEl){
-        const NextNavEl = createNavEl("next", "next", ">");
-        const PrevNavEl = createNavEl("prev", "prev", "<");
+    const handleMove = (e) => {
+        e.preventDefault();
+        if (InitialPos === null) {
+            return;
+        }
+
+        var currentPos = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+
+        var diffPos = InitialPos - currentPos;
+
+        if (diffPos > 0) {
+            handleNavAction("prev");
+        } else if (diffPos < 0){
+            handleNavAction("next");
+        }
+    };
+
+
+    if (imageEl && ('images' in imageEl.dataset)){
+        const NextNavEl = createNavEl("next", "sp-slider__nav sp-slider__nav--next", ">");
+        const PrevNavEl = createNavEl("prev", "sp-slider__nav sp-slider__nav--prev", "<");
         imageEl.parentElement.append(NextNavEl);
         imageEl.parentElement.append(PrevNavEl);
 
         [NextNavEl, PrevNavEl].forEach(handler => {
             handler.addEventListener('click', (event) => {
-                handleNavClick(event, handler, imageEl);
+                event.preventDefault();
+                handleNavAction(handler.dataset.action);
             });
         });
+
+        if ('ontouchstart' in window) {
+            imageEl.addEventListener('touchstart', getInitialPos, false);
+            imageEl.addEventListener('touchend', handleMove, false);
+        } else {
+            imageEl.addEventListener('mousedown', getInitialPos, false);
+            imageEl.addEventListener('mouseup', handleMove, false);
+        }
+
+        //imageEl.addEventListener('touchmove', e => { e.preventDefault() }, false);
     }
 }
 
-initSpSlider('.sp-slider__image');
+initSpSlider(document.querySelector('.sp-slider__image'));
