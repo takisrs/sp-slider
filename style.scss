@@ -15,6 +15,13 @@
     &__image{
         max-width:100%;
         height:auto;
+        opacity:1;
+        background-color:#dedede;
+        transition:all 1s;
+
+        &.animate{
+            opacity:0;
+        }
     }
 
     &__nav{

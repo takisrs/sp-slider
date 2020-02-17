@@ -7,8 +7,13 @@ const initSpSlider = (imageEl) => {
         return navEl;
     }
 
+    const preloadImage = (url) => {
+        const img = new Image();
+        img.src = url;
+    }
+
     const handleNavAction = (action) => {
-        console.log(action);
+        imageEl.classList.add('animate');
         const navAction = action || 'next';
         const index = parseInt(imageEl.dataset.index) || 0;
         const images = imageEl.dataset.images ? imageEl.dataset.images.split(',') : [];
@@ -25,8 +30,14 @@ const initSpSlider = (imageEl) => {
                     newIndex = images.length-1;
             }
 
-            imageEl.dataset.index = newIndex;
-            imageEl.src = images[newIndex];
+            preloadImage(images[newIndex]);
+            setTimeout(() => {
+                imageEl.dataset.index = newIndex;
+                imageEl.src = images[newIndex];
+                imageEl.classList.remove('animate');
+            }, 200);
+
+            
         }
     }
 
