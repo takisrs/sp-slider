@@ -90,4 +90,7 @@ const initSpSlider = (imageEl) => {
     }
 }
 
-initSpSlider(document.querySelector('.sp-slider__image'));
+const images = document.querySelectorAll('.sp-slider__image');
+images.forEach(item => {
+    initSpSlider(item);
+});
