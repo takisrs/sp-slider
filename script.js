@@ -91,6 +91,6 @@ const initSpSlider = (imageEl) => {
 }
 
 const images = document.querySelectorAll('.sp-slider__image');
-images.forEach(item => {
+images && images.forEach(item => {
     initSpSlider(item);
 });
