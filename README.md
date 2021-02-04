@@ -4,7 +4,7 @@
 [Demo](https://takisrs.github.io/sp-slider/index.html)
 
 ## How to use
-Firstly, add data-images="image1.jpg,image2.jpg" attribute to the image tag   
+Firstly, add `data-images="image1.jpg,image2.jpg"` attribute to the image tag   
 
 ```html
 <div class="sp-slider">
