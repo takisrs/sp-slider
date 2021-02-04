@@ -1,16 +1,27 @@
-<h1>Simple Image Slider</h1>
-<a href="https://takisrs.github.io/sp-slider/index.html">Demo</a>
+# Simple Image Slider
 
-<p>Firstly, add data-images="image1.jpg,image2.jpg" attribute to the image tag</p>
-<p>Then, initialize by passing the HTMLElement object to initSpSlider</p>
-<p>Ex.<br/>
-<pre>initSpSlider(document.querySelector('.sp-slider__image'));</pre></p>
+## Demo
+[Demo](https://takisrs.github.io/sp-slider/index.html)
 
-<p>or for multible elements...</p>
-<p>Ex.<br/>
-<pre>const images = document.querySelectorAll('.sp-slider__image');
+## How to use
+Firstly, add data-images="image1.jpg,image2.jpg" attribute to the image tag   
+
+```html
+<div class="sp-slider">
+    <img class="sp-slider__image" data-index="0" data-images="images/image1.jpg,images/image2.jpg,images/image3.jpg,images/image4.jpg" src="images/image1.jpg" alt="Image">
+</div>
+```
+
+Then, initialize by passing the HTMLElement object to initSpSlider.   
+Ex.   
+```javascript
+initSpSlider(document.querySelector('.sp-slider__image'));
+```
+
+or for multible elements...   
+```javascript
+const images = document.querySelectorAll('.sp-slider__image');
 images && images.forEach(item => {
     initSpSlider(item);
 });
-</pre>
-</p>
+```
