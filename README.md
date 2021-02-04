@@ -1,4 +1,4 @@
-# Simple Image Slider
+# A Simple Image Slider
 
 ## Demo
 [Demo](https://takisrs.github.io/sp-slider/index.html)
